@@ -21,7 +21,7 @@ url                      : https://MathBao.github.io # the base hostname & proto
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.jpeg"
+  avatar           : "mathbao.jpeg"
   name             : "包雷振 Bao Leizhen"
   #pronouns         : # example: "she/her"  
   #bio              : "Short biography for the left-hand sidebar"
