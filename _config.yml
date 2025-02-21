@@ -8,11 +8,11 @@
 
 # Basic Site Settings
 locale                   : "en-US"
-title                    : "Leizhen Bao"
+title                    : "Bao Leizhen"
 title_separator          : "-"
 name                     : &name "Bao Leizhen"
 description              : &description "personal description"
-url                      : https://MATHBA0.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
+url                      : https://MathBao.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
 #baseurl                  : "" # the subpath of your site, e.g. "/blog"
 #repository               : "academicpages/academicpages.github.io"
 
@@ -22,7 +22,7 @@ url                      : https://MATHBA0.github.io # the base hostname & proto
 author:
   # Biographic information
   avatar           : "profile.jpeg"
-  name             : "包雷振 Leizhen Bao"
+  name             : "包雷振 Bao Leizhen"
   #pronouns         : # example: "she/her"  
   #bio              : "Short biography for the left-hand sidebar"
   location         : "China"
