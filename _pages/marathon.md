@@ -13,6 +13,7 @@ redirect_from:
 
 | Full Marathon |          |      | Half Marathon |
 | ---------- | ---------- |--------|-------- |
+|  |       | 2:24:58 | 24.12.31, ZJU  |
 |  |       | 2:13:52 | 23.04.15, Yangzhou  |
 | 22.11.20, Hangzhou |  DNF (wounded in 32km) |  | |
 |  |       | 1:33:17   | 22.05.08 ZJUKFRC    |
