@@ -8,8 +8,8 @@ redirect_from:
 ---
 
 # About Me
-* I am a postdoctor at Tsinghua University.
-* I received my Ph.D. from Zhejiang University and my Ph.D. advisor was Prof. Fang Li.
+* I am a postdoctor at Tsinghua University and my co-advisor is Prof. Bangming Deng.
+* I received my Ph.D. from Zhejiang University and my Ph.D. advisor is Prof. Fang Li.
 * My research interest is: **the intersection of cluster theory and number theory**.
 * My [MathSciNet](http://mathscinet.ams.org/mathscinet/author?authorId=1584700)
 * My [arXiv](http://arxiv.org/a/bao_l_3) 
