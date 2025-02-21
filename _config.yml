@@ -8,7 +8,7 @@
 
 # Basic Site Settings
 locale                   : "en-US"
-title                    : "Bao Leizhen"
+title                    : "Leizhen Bao"
 title_separator          : "-"
 name                     : &name "Bao Leizhen"
 description              : &description "personal description"
@@ -22,11 +22,11 @@ url                      : https://MATHBA0.github.io # the base hostname & proto
 author:
   # Biographic information
   avatar           : "profile.jpeg"
-  name             : "包雷振 Bao Leizhen"
+  name             : "包雷振 Leizhen Bao"
   #pronouns         : # example: "she/her"  
   #bio              : "Short biography for the left-hand sidebar"
   location         : "China"
-  employer         : "Zhejiang University"
+  employer         : "Tsinghua University"
   #uri              : # URL
   email            : "mathbao@zju.edu.cn" 
 
