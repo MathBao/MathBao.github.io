@@ -12,7 +12,8 @@ redirect_from:
 * I received my Ph.D. from Zhejiang University and my Ph.D. advisor is Prof. Li Fang.
 * My research interest is: **the intersection of cluster theory and number theory**.
 * My [MathSciNet](http://mathscinet.ams.org/mathscinet/author?authorId=1584700)
-* My [arXiv](http://arxiv.org/a/bao_l_3) 
+* My [arXiv](http://arxiv.org/a/bao_l_3)
+  
 
 # Publications
 1. **A Study on Diophantine Equations via Cluster Theory**.
@@ -20,7 +21,7 @@ redirect_from:
    * Journal of Algebra, 2024.
    * [DOI](https://doi.org/10.1016/j.jalgebra.2023.10.012), [arXiv](https://arxiv.org/abs/2306.00468)
 
-2. **The Approach of cluster symmetry to Diophantine Equations**.
+2. **The Approach of Cluster Symmetry to Diophantine Equations**.
    * with Li Fang. 
    * [Matlab program (Update 25.07.30)](/files/ClusterSymPoly_250730Version.zip)
 
