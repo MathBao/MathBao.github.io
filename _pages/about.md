@@ -20,9 +20,9 @@ redirect_from:
    * Journal of Algebra, 2024.
    * [DOI](https://doi.org/10.1016/j.jalgebra.2023.10.012), [arXiv](https://arxiv.org/abs/2306.00468)
 
-2. **A Cluster-Theoretic Approach to Diophantine Equations**.
+2. **The Approach of cluster symmetry to Diophantine Equations**.
    * with Li Fang. 
-   * [Matlab program (Update 24.11.13)](/files/matlab_CA&NT.zip)
+   * [Matlab program (Update 25.07.30)](/files/ClusterSymPoly_250730Version.zip)
 
 
 # Reports
