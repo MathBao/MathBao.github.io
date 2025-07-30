@@ -7,7 +7,7 @@ from pathlib import Path
 app = Flask(__name__)
 
 # 配置信息
-DOWNLOAD_FILE = 'research_paper.pdf'  # 要下载的文件路径
+DOWNLOAD_FILE = 'ClusterSymPoly_250730Version.zip'  # 要下载的文件路径
 RECORDS_FILE = 'downloads.csv'  # 下载记录文件
 
 # 确保记录文件存在
@@ -25,7 +25,7 @@ def index():
             reader = csv.reader(f)
             download_count = sum(1 for row in reader) - 1  # 减去标题行
     
-    return render_template('index.html', download_count=download_count)
+    return render_template('download.html', download_count=download_count)
 
 @app.route('/record-download', methods=['POST'])
 def record_download():
@@ -66,7 +66,7 @@ def download_file():
     return send_file(
         DOWNLOAD_FILE,
         as_attachment=True,
-        download_name='数学研究论文集.pdf'
+        download_name='ClusterSymPoly_250730Version.zip'
     )
 
 @app.route('/view-records')
