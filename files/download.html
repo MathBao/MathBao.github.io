@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>学术文件下载系统</title>
+    <title>Academic Resource Download System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -220,7 +220,7 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* 隐藏的管理员按钮 */
+        /* Hidden admin button */
         .secret-admin-btn {
             position: fixed;
             bottom: 20px;
@@ -239,7 +239,7 @@
             opacity: 0.1;
         }
         
-        /* 管理员面板 */
+        /* Admin panel */
         .admin-panel {
             position: fixed;
             top: 50%;
@@ -417,8 +417,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h2><i class="fas fa-file-download"></i> 学术文件下载</h2>
-            <p>请填写以下信息以下载文件</p>
+            <h2><i class="fas fa-file-download"></i> Academic Resource Download</h2>
+            <p>Please fill in the form below to download the file</p>
         </div>
         
         <div class="file-info">
@@ -426,73 +426,73 @@
                 <i class="fas fa-file-pdf"></i>
             </div>
             <div class="file-details">
-                <h3>数学研究论文集.pdf</h3>
-                <p>文件大小: 4.2 MB | 最后更新: 2023-08-15 | 下载次数: <span id="downloadCount">0</span></p>
+                <h3>Mathematics Research Collection.pdf</h3>
+                <p>File size: 4.2 MB | Last updated: 2023-08-15 | Downloads: <span id="downloadCount">0</span></p>
             </div>
         </div>
         
         <div class="form-container">
             <form id="downloadForm">
                 <div class="form-group">
-                    <label for="name" class="required">姓名</label>
-                    <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
-                    <div class="error-message" id="nameError">请输入有效的姓名（至少2个字符）</div>
+                    <label for="name" class="required">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                    <div class="error-message" id="nameError">Please enter a valid name (at least 2 characters)</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="email" class="required">电子邮箱</label>
-                    <input type="email" id="email" name="email" placeholder="请输入您的电子邮箱" required>
-                    <div class="error-message" id="emailError">请输入有效的电子邮箱</div>
+                    <label for="email" class="required">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                    <div class="error-message" id="emailError">Please enter a valid email address</div>
                 </div>
                 
                 <div class="loader" id="loader">
                     <div class="spinner"></div>
-                    <p>正在处理您的请求，请稍候...</p>
+                    <p>Processing your request, please wait...</p>
                 </div>
                 
                 <button type="submit" class="submit-btn">
-                    <i class="fas fa-download"></i> 获取下载链接
+                    <i class="fas fa-download"></i> Get Download Link
                 </button>
                 
                 <a href="#" class="download-link" id="downloadLink">
-                    <i class="fas fa-download"></i> 点击此处下载文件
+                    <i class="fas fa-download"></i> Click here to download the file
                 </a>
             </form>
         </div>
         
         <div class="success-message" id="successMessage">
             <i class="fas fa-check-circle"></i>
-            <h2>下载请求已成功处理！</h2>
-            <p>您的信息已记录在系统后台，感谢您的下载</p>
+            <h2>Download Request Processed Successfully!</h2>
+            <p>Your information has been recorded. Thank you for downloading.</p>
         </div>
         
         <div class="footer">
-            <p>您的信息仅用于学术交流目的，我们不会与任何第三方共享</p>
-            <p>© 2023 学术研究资料中心 | 隐私保护</p>
+            <p>Your information is used for academic purposes only and will not be shared with third parties</p>
+            <p>© 2023 Academic Resource Center | Privacy Policy</p>
         </div>
     </div>
     
-    <!-- 隐藏的管理员按钮 -->
-    <button class="secret-admin-btn" id="secretAdminBtn" title="管理员入口"></button>
+    <!-- Hidden admin button -->
+    <button class="secret-admin-btn" id="secretAdminBtn" title="Admin Access"></button>
     <div class="counter-indicator" id="counterIndicator"></div>
     
-    <!-- 管理员面板 -->
+    <!-- Admin panel -->
     <div class="overlay" id="adminOverlay"></div>
     <div class="admin-panel" id="adminPanel">
         <button class="close-btn" id="closeAdminPanel">&times;</button>
         <div class="admin-header">
-            <h2><i class="fas fa-user-shield"></i> 管理员面板</h2>
-            <p>下载记录管理</p>
+            <h2><i class="fas fa-user-shield"></i> Administrator Panel</h2>
+            <p>Download Records Management</p>
         </div>
         
         <div class="password-prompt" id="passwordSection">
-            <p>请输入管理员密码：</p>
-            <input type="password" class="password-input" id="adminPassword" placeholder="输入管理员密码">
+            <p>Please enter administrator password:</p>
+            <input type="password" class="password-input" id="adminPassword" placeholder="Enter admin password">
             <button class="password-btn" id="passwordSubmit">
-                <i class="fas fa-unlock"></i> 登录
+                <i class="fas fa-unlock"></i> Login
             </button>
             <p class="password-error" id="passwordError">
-                <i class="fas fa-exclamation-circle"></i> 密码错误，请重试
+                <i class="fas fa-exclamation-circle"></i> Incorrect password, please try again
             </p>
         </div>
         
@@ -501,47 +501,123 @@
                 <table class="downloads-table">
                     <thead>
                         <tr>
-                            <th>序号</th>
-                            <th>姓名</th>
-                            <th>邮箱</th>
-                            <th>下载时间</th>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Download Time</th>
                         </tr>
                     </thead>
                     <tbody id="downloadsList">
-                        <!-- 下载记录将通过JavaScript填充 -->
+                        <!-- Download records will be populated here -->
                     </tbody>
                 </table>
             </div>
             <div id="emptyMessage" class="empty-message" style="display: none;">
                 <i class="fas fa-inbox"></i>
-                <p>尚未有下载记录</p>
+                <p>No download records yet</p>
             </div>
             
             <div class="admin-controls">
                 <button class="password-btn" id="exportBtn">
-                    <i class="fas fa-file-export"></i> 导出CSV
+                    <i class="fas fa-file-export"></i> Export CSV
                 </button>
                 <button class="password-btn" id="clearBtn" style="background: #e74c3c;">
-                    <i class="fas fa-trash-alt"></i> 清除记录
+                    <i class="fas fa-trash-alt"></i> Clear Records
                 </button>
             </div>
         </div>
     </div>
 
     <script>
-        // 存储下载记录的数组
+        // Store download records
         let downloads = JSON.parse(localStorage.getItem('downloadRecords')) || [];
         
-        // 更新下载次数显示
+        // Update download count display
         document.getElementById('downloadCount').textContent = downloads.length;
         
-        // 管理员密码（请修改为您的密码）
+        // Admin password (change this to your own)
         const ADMIN_PASSWORD = "academic123";
         
-        // 隐藏按钮点击计数器
+        // Hidden button click counter
         let clickCounter = 0;
         
-        // 初始化下载记录显示
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Bind all event listeners after page loads
+            initEventListeners();
+            updateDownloadsDisplay();
+        });
+        
+        function initEventListeners() {
+            // Secret admin button
+            document.getElementById('secretAdminBtn').addEventListener('click', handleSecretAdminBtn);
+            
+            // Close admin panel
+            document.getElementById('closeAdminPanel').addEventListener('click', closeAdminPanel);
+            document.getElementById('adminOverlay').addEventListener('click', closeAdminPanel);
+            
+            // Admin password submission
+            document.getElementById('passwordSubmit').addEventListener('click', handlePasswordSubmit);
+            
+            // Export and clear buttons
+            document.getElementById('exportBtn').addEventListener('click', exportRecords);
+            document.getElementById('clearBtn').addEventListener('click', clearRecords);
+            
+            // Download form submission
+            document.getElementById('downloadForm').addEventListener('submit', handleFormSubmit);
+            
+            // Download link click
+            document.getElementById('downloadLink').addEventListener('click', handleDownload);
+        }
+        
+        function handleSecretAdminBtn() {
+            clickCounter++;
+            
+            // Show click counter
+            const counterIndicator = document.getElementById('counterIndicator');
+            counterIndicator.textContent = clickCounter;
+            counterIndicator.style.display = 'flex';
+            
+            // Hide counter after 1 second
+            setTimeout(() => {
+                counterIndicator.style.display = 'none';
+            }, 1000);
+            
+            // Show admin panel after 3 clicks
+            if (clickCounter >= 3) {
+                clickCounter = 0;
+                counterIndicator.style.display = 'none';
+                
+                // Show admin login panel
+                document.getElementById('adminOverlay').style.display = 'block';
+                document.getElementById('adminPanel').style.display = 'block';
+                document.getElementById('passwordSection').style.display = 'block';
+                document.getElementById('downloadsContainer').style.display = 'none';
+                document.getElementById('adminPassword').focus();
+            }
+        }
+        
+        function closeAdminPanel() {
+            document.getElementById('adminOverlay').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'none';
+        }
+        
+        function handlePasswordSubmit() {
+            const passwordInput = document.getElementById('adminPassword').value;
+            
+            if (passwordInput === ADMIN_PASSWORD) {
+                document.getElementById('passwordError').style.display = 'none';
+                document.getElementById('passwordSection').style.display = 'none';
+                document.getElementById('downloadsContainer').style.display = 'block';
+                updateDownloadsDisplay();
+                document.getElementById('adminPassword').value = '';
+            } else {
+                document.getElementById('passwordError').style.display = 'block';
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('adminPassword').focus();
+            }
+        }
+        
         function updateDownloadsDisplay() {
             const downloadsList = document.getElementById('downloadsList');
             const emptyMessage = document.getElementById('emptyMessage');
@@ -555,7 +631,7 @@
             emptyMessage.style.display = 'none';
             downloadsList.innerHTML = '';
             
-            // 按时间倒序排列（最新下载在最前面）
+            // Sort by timestamp (newest first)
             const sortedDownloads = [...downloads].reverse();
             
             sortedDownloads.forEach((record, index) => {
@@ -570,120 +646,60 @@
             });
         }
         
-        // 隐藏按钮点击事件
-        document.getElementById('secretAdminBtn').addEventListener('click', function() {
-            clickCounter++;
-            
-            // 显示点击计数器
-            const counterIndicator = document.getElementById('counterIndicator');
-            counterIndicator.textContent = clickCounter;
-            counterIndicator.style.display = 'flex';
-            
-            // 三秒后隐藏计数器
-            setTimeout(() => {
-                counterIndicator.style.display = 'none';
-            }, 1000);
-            
-            // 点击三次后显示管理员面板
-            if (clickCounter >= 3) {
-                clickCounter = 0;
-                counterIndicator.style.display = 'none';
-                
-                // 显示管理员登录面板
-                document.getElementById('adminOverlay').style.display = 'block';
-                document.getElementById('adminPanel').style.display = 'block';
-                document.getElementById('passwordSection').style.display = 'block';
-                document.getElementById('downloadsContainer').style.display = 'none';
-                document.getElementById('adminPassword').focus();
-            }
-        });
-        
-        // 关闭管理员面板
-        document.getElementById('closeAdminPanel').addEventListener('click', function() {
-            document.getElementById('adminOverlay').style.display = 'none';
-            document.getElementById('adminPanel').style.display = 'none';
-        });
-        
-        document.getElementById('adminOverlay').addEventListener('click', function() {
-            document.getElementById('adminOverlay').style.display = 'none';
-            document.getElementById('adminPanel').style.display = 'none';
-        });
-        
-        // 验证管理员密码
-        document.getElementById('passwordSubmit').addEventListener('click', function() {
-            const passwordInput = document.getElementById('adminPassword').value;
-            
-            if (passwordInput === ADMIN_PASSWORD) {
-                document.getElementById('passwordError').style.display = 'none';
-                document.getElementById('passwordSection').style.display = 'none';
-                document.getElementById('downloadsContainer').style.display = 'block';
-                updateDownloadsDisplay();
-                document.getElementById('adminPassword').value = '';
-            } else {
-                document.getElementById('passwordError').style.display = 'block';
-                document.getElementById('adminPassword').value = '';
-                document.getElementById('adminPassword').focus();
-            }
-        });
-        
-        // 导出为CSV文件
-        document.getElementById('exportBtn').addEventListener('click', function() {
+        function exportRecords() {
             if (downloads.length === 0) {
-                alert('没有可导出的下载记录');
+                alert('No download records to export');
                 return;
             }
             
-            // 创建CSV内容
-            let csvContent = "序号,姓名,邮箱,下载时间\n";
+            // Create CSV content
+            let csvContent = "ID,Name,Email,Download Time\n";
             
             downloads.forEach((record, index) => {
                 csvContent += `${index + 1},${record.name},${record.email},${record.timestamp}\n`;
             });
             
-            // 创建下载链接
+            // Create download link
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.setAttribute('href', url);
             link.setAttribute('download', `download_records_${new Date().toISOString().slice(0,10)}.csv`);
-            link.style.visibility = 'hidden';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-        });
+        }
         
-        // 清除所有记录
-        document.getElementById('clearBtn').addEventListener('click', function() {
-            if (confirm('确定要清除所有下载记录吗？此操作不可恢复！')) {
+        function clearRecords() {
+            if (confirm('Are you sure you want to clear all download records? This action cannot be undone!')) {
                 downloads = [];
                 localStorage.setItem('downloadRecords', JSON.stringify(downloads));
                 updateDownloadsDisplay();
                 document.getElementById('downloadCount').textContent = '0';
-                alert('所有下载记录已清除');
+                alert('All download records have been cleared');
             }
-        });
+        }
         
-        // 处理下载表单提交
-        document.getElementById('downloadForm').addEventListener('submit', function(e) {
+        function handleFormSubmit(e) {
             e.preventDefault();
             
-            // 获取表单值
+            // Get form values
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             
-            // 重置错误信息
+            // Reset error messages
             document.getElementById('nameError').style.display = 'none';
             document.getElementById('emailError').style.display = 'none';
             
             let valid = true;
             
-            // 验证姓名
+            // Validate name
             if (!name || name.length < 2) {
                 document.getElementById('nameError').style.display = 'block';
                 valid = false;
             }
             
-            // 验证邮箱
+            // Validate email
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!email || !emailRegex.test(email)) {
                 document.getElementById('emailError').style.display = 'block';
@@ -692,12 +708,12 @@
             
             if (!valid) return;
             
-            // 显示加载动画
+            // Show loader
             document.getElementById('loader').style.display = 'block';
             
-            // 模拟处理
+            // Process after a short delay
             setTimeout(() => {
-                // 记录下载信息
+                // Record download info
                 const now = new Date();
                 const timestamp = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
                 
@@ -707,44 +723,40 @@
                     timestamp: timestamp
                 });
                 
-                // 保存到localStorage
+                // Save to localStorage
                 localStorage.setItem('downloadRecords', JSON.stringify(downloads));
                 
-                // 更新下载次数
+                // Update download count
                 document.getElementById('downloadCount').textContent = downloads.length;
                 
-                // 显示成功消息
+                // Show success message
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('successMessage').style.display = 'block';
                 document.getElementById('downloadLink').style.display = 'block';
                 
-                // 滚动到下载链接
+                // Scroll to download link
                 document.getElementById('downloadLink').scrollIntoView({ behavior: 'smooth' });
                 
             }, 1500);
-        });
+        }
         
-        // 处理下载链接点击
-        document.getElementById('downloadLink').addEventListener('click', function(e) {
+        function handleDownload(e) {
             e.preventDefault();
             
-            // 在实际应用中，这里会触发文件下载
-            // 以下是文件下载示例（替换为您的实际文件URL）
+            // FIXED: This is the corrected download function
+            // Replace with your actual file URL
             const fileUrl = 'https://example.com/path/to/your/file.pdf';
+            
+            // Create temporary download link
             const a = document.createElement('a');
             a.href = fileUrl;
-            a.download = '数学研究论文集.pdf';
+            a.download = 'Mathematics_Research_Collection.pdf';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             
-            alert('文件下载已开始！您的信息已记录在系统后台。');
-        });
-        
-        // 初始化页面
-        document.addEventListener('DOMContentLoaded', function() {
-            updateDownloadsDisplay();
-        });
+            alert('Download started! Your information has been recorded.');
+        }
     </script>
 </body>
 </html>
