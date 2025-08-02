@@ -38,24 +38,3 @@ redirect_from:
 
 
 
-
-55
-
-
-<a href='https://clustrmaps.com/site/1c7fb' title='Visit tracker'>
-  <img src='//clustrmaps.com/map_v2.png?cl=ffffff&w=200&t=n&d=qZqWNuBiyn41OoIP3P6sJx91DZWl55Yw_il0itFRZ04&co=ffffff' 
-       style="background-color: transparent; 
-              mix-blend-mode: lighten; 
-              filter: contrast(1.2) brightness(1.1);
-              padding: 5px;
-              border-radius: 5px;
-              background: rgba(0,0,0,0.3);"
-       class="transparent-image"
-       alt="Visitor Map"/>
-</a>  
-
-
-
-
-<a href='https://clustrmaps.com/site/1c7fb'  title='Visit tracker'><img src='//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=qZqWNuBiyn41OoIP3P6sJx91DZWl55Yw_il0itFRZ04&co=ffffff' class="right-image"/></a>
-
