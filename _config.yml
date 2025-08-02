@@ -8,9 +8,9 @@
 
 # Basic Site Settings
 locale                   : "en-US"
-title                    : "Bao Leizhen"
+title                    : "Leizhen Bao"
 title_separator          : "-"
-name                     : &name "Bao Leizhen"
+name                     : &name "Leizhen Bao"
 description              : &description "personal description"
 url                      : https://MathBao.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
 #baseurl                  : "" # the subpath of your site, e.g. "/blog"
