@@ -8,8 +8,8 @@ redirect_from:
 ---
 
 # About Me
-* I am a postdoctor at Tsinghua University and my co-advisor is Prof. Deng Bangming.
-* I received my Ph.D. from Zhejiang University and my Ph.D. advisor is Prof. Li Fang.
+* I am a postdoctor at Tsinghua University and my co-advisor is Prof. Bangming Deng.
+* I received my Ph.D. from Zhejiang University and my Ph.D. advisor is Prof. Fang Li.
 * My research interest is: **the intersection of cluster theory and number theory**.
 * My [MathSciNet](http://mathscinet.ams.org/mathscinet/author?authorId=1584700)
 * My [arXiv](http://arxiv.org/a/bao_l_3)
@@ -18,12 +18,12 @@ redirect_from:
 # Publications
 
 1. **A Study on Diophantine Equations via Cluster Theory**.
-   * with Li Fang.
+   * with Fang Li.
    * Journal of Algebra, 2024.
    * [DOI](https://doi.org/10.1016/j.jalgebra.2023.10.012), [arXiv](https://arxiv.org/abs/2306.00468)
 
 2. **The Approach of Cluster Symmetry to Diophantine Equations**.
-   * with Li Fang.
+   * with Fang Li.
    * [Matlab programs (Update 25.07.30)](/files/download.html), this programs can be run on [Matlab Online](https://matlab.mathworks.com).
    * [arXiv]
 
