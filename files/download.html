@@ -535,7 +535,7 @@
         document.getElementById('downloadCount').textContent = downloads.length;
         
         // Admin password (change this to your own)
-        const ADMIN_PASSWORD = "academic123";
+        const ADMIN_PASSWORD = "CAN";
         
         // Hidden button click counter
         let clickCounter = 0;
@@ -575,7 +575,7 @@
             // Show click counter
             const counterIndicator = document.getElementById('counterIndicator');
             counterIndicator.textContent = clickCounter;
-            counterIndicator.style.display = 'flex';
+            // counterIndicator.style.display = 'flex';
             
             // Hide counter after 1 second
             setTimeout(() => {
@@ -754,7 +754,7 @@
             a.click();
             document.body.removeChild(a);
             
-            alert('Download started! Your information has been recorded.');
+            alert('Download started!');
         }
     </script>
 </body>
