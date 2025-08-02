@@ -3,34 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download Files</title>
+    <title>学术文件下载系统</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Noto Sans SC', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
             background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1509228468518-180dd4864904?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center;
+            background-size: cover;
+            opacity: 0.05;
+            z-index: -1;
         }
         
         .container {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            background-color: rgba(255, 255, 255, 0.97);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             width: 100%;
-            max-width: 500px;
+            max-width: 800px;
             overflow: hidden;
             position: relative;
+            z-index: 10;
             animation: fadeIn 0.8s ease-out;
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
         
         @keyframes fadeIn {
@@ -39,68 +58,87 @@
         }
         
         .header {
-            background: linear-gradient(90deg, #3498db, #2c3e50);
+            background: linear-gradient(90deg, #2c3e50, #3498db);
             color: white;
             padding: 30px 25px;
             text-align: center;
             position: relative;
+            overflow: hidden;
         }
         
-        .header::after {
+        .header::before {
             content: "";
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #1abc9c, #3498db, #9b59b6);
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
         }
         
         .header h1 {
-            font-size: 28px;
+            font-size: 2.2rem;
             margin-bottom: 10px;
-            font-weight: 600;
+            font-weight: 700;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
         .header p {
-            font-size: 16px;
+            font-size: 1.1rem;
             opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
         }
         
-        .file-info {
+        .file-card {
             display: flex;
             align-items: center;
-            background: #f8f9fa;
-            padding: 20px;
-            border-bottom: 1px solid #eee;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            padding: 25px;
+            border-bottom: 1px solid #dee2e6;
+            position: relative;
         }
         
         .file-icon {
             background: #3498db;
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-right: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            flex-shrink: 0;
         }
         
         .file-icon i {
-            font-size: 28px;
+            font-size: 32px;
             color: white;
         }
         
         .file-details h3 {
-            font-size: 18px;
+            font-size: 1.4rem;
             color: #2c3e50;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
         
         .file-details p {
-            font-size: 14px;
-            color: #7f8c8d;
+            font-size: 1rem;
+            color: #6c757d;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .file-details span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         .form-container {
@@ -108,29 +146,30 @@
         }
         
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 28px;
             position: relative;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
+            margin-bottom: 10px;
+            font-weight: 600;
             color: #2c3e50;
+            font-size: 1.1rem;
         }
         
         .form-group input {
             width: 100%;
-            padding: 14px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 16px 18px;
+            border: 2px solid #ced4da;
+            border-radius: 12px;
+            font-size: 1.05rem;
             transition: all 0.3s;
         }
         
         .form-group input:focus {
             border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
             outline: none;
         }
         
@@ -138,14 +177,14 @@
             background: linear-gradient(90deg, #3498db, #2980b9);
             color: white;
             border: none;
-            padding: 16px;
-            font-size: 18px;
+            padding: 18px;
+            font-size: 1.2rem;
             font-weight: 600;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
             width: 100%;
             transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -167,8 +206,8 @@
         
         .submit-btn:hover {
             background: linear-gradient(90deg, #2980b9, #2573a7);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(52, 152, 219, 0.4);
         }
         
         .submit-btn:active {
@@ -177,39 +216,39 @@
         
         .footer {
             text-align: center;
-            padding: 20px;
-            color: #7f8c8d;
-            font-size: 14px;
-            border-top: 1px solid #eee;
+            padding: 25px;
+            color: #6c757d;
+            font-size: 1rem;
+            border-top: 1px solid #e9ecef;
             background: #f8f9fa;
         }
         
         .success-message {
             display: none;
-            background: #2ecc71;
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
             color: white;
-            padding: 25px 20px;
+            padding: 30px 20px;
             text-align: center;
-            border-radius: 0 0 15px 15px;
             animation: fadeIn 0.5s;
         }
         
         .success-message i {
-            font-size: 40px;
-            margin-bottom: 15px;
-            animation: bounce 1s ease infinite;
+            font-size: 50px;
+            margin-bottom: 20px;
+            animation: bounce 1.5s ease infinite;
         }
         
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-15px); }
         }
         
         .error-message {
             color: #e74c3c;
-            font-size: 14px;
-            margin-top: 5px;
+            font-size: 1rem;
+            margin-top: 8px;
             display: none;
+            font-weight: 500;
         }
         
         .required:after {
@@ -220,32 +259,36 @@
         .download-link {
             display: block;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 25px;
             color: #3498db;
-            font-weight: 500;
-            font-size: 17px;
+            font-weight: 600;
+            font-size: 1.2rem;
             display: none;
             text-decoration: none;
             transition: all 0.3s;
+            padding: 15px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 10px;
         }
         
         .download-link:hover {
             color: #2980b9;
-            transform: scale(1.05);
+            transform: scale(1.03);
+            background: rgba(52, 152, 219, 0.15);
         }
         
         .loader {
             display: none;
             text-align: center;
-            margin: 20px 0;
+            margin: 25px 0;
         }
         
         .loader .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-left: 4px solid #3498db;
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #3498db;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             animation: spin 1s linear infinite;
             margin: 0 auto;
         }
@@ -256,65 +299,438 @@
         }
         
         .download-count {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             background: #e74c3c;
             color: white;
             border-radius: 50%;
-            width: 25px;
-            height: 25px;
-            line-height: 25px;
-            text-align: center;
-            font-size: 14px;
-            margin-left: 5px;
-            vertical-align: middle;
+            width: 32px;
+            height: 32px;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-left: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         
-        @media (max-width: 480px) {
+        /* 隐藏管理员入口 */
+        .admin-entry {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(52, 152, 219, 0.15);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .admin-entry:hover {
+            background: rgba(52, 152, 219, 0.25);
+            transform: scale(1.1);
+        }
+        
+        .admin-entry i {
+            color: rgba(255,255,255,0.7);
+            font-size: 20px;
+        }
+        
+        .admin-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: auto;
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .admin-panel.active {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+        }
+        
+        .admin-header h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .close-admin {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .close-admin:hover {
+            transform: rotate(90deg) scale(1.1);
+            background: #c0392b;
+        }
+        
+        .downloads-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .downloads-table th {
+            background: #3498db;
+            color: white;
+            text-align: left;
+            padding: 15px 18px;
+            position: sticky;
+            top: 0;
+            font-weight: 600;
+        }
+        
+        .downloads-table td {
+            padding: 12px 18px;
+            border-bottom: 1px solid #eee;
+            color: #495057;
+        }
+        
+        .downloads-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .downloads-table tr:hover {
+            background-color: #e9f7fe;
+        }
+        
+        .empty-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6c757d;
+            font-style: italic;
+            border: 2px dashed #dee2e6;
+            border-radius: 15px;
+            margin-top: 20px;
+            background: #f8f9fa;
+        }
+        
+        .password-prompt {
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin-top: 20px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .password-prompt h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px solid #ced4da;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        
+        .password-input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        
+        .password-btn {
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        
+        .password-btn:hover {
+            background: linear-gradient(90deg, #2980b9, #2573a7);
+            transform: translateY(-2px);
+        }
+        
+        .admin-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .admin-btn {
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .admin-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .admin-btn.export {
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+        }
+        
+        .admin-btn.export:hover {
+            background: linear-gradient(90deg, #27ae60, #219653);
+        }
+        
+        .admin-btn.clear {
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+        }
+        
+        .admin-btn.clear:hover {
+            background: linear-gradient(90deg, #c0392b, #a93226);
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1500;
+            display: none;
+            backdrop-filter: blur(5px);
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        .password-error {
+            color: #e74c3c;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+            font-size: 1.1rem;
+        }
+        
+        .counter-display {
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            background: rgba(46, 204, 113, 0.9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 768px) {
             .container {
-                margin: 10px;
+                border-radius: 15px;
             }
             
             .header {
-                padding: 20px 15px;
+                padding: 25px 20px;
             }
             
             .header h1 {
-                font-size: 24px;
+                font-size: 1.8rem;
+            }
+            
+            .file-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .file-icon {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .file-details p {
+                justify-content: center;
             }
             
             .form-container {
+                padding: 25px 20px;
+            }
+            
+            .admin-panel {
+                width: 95%;
                 padding: 20px;
+            }
+            
+            .admin-actions {
+                flex-direction: column;
+            }
+            
+            .downloads-table {
+                font-size: 0.9rem;
+            }
+            
+            .downloads-table th, 
+            .downloads-table td {
+                padding: 10px 12px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1><i class="fas fa-file-download"></i>Download File</h1>
-            <p>Please fill in the following information to download the file.</p>
+    <!-- 隐藏管理员入口 -->
+    <div class="admin-entry" id="adminEntry" title="管理员入口">
+        <i class="fas fa-user-secret"></i>
+    </div>
+    
+    <!-- 点击计数器显示 -->
+    <div class="counter-display" id="counterDisplay"></div>
+    
+    <!-- 管理员面板 -->
+    <div class="overlay" id="adminOverlay"></div>
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <h2><i class="fas fa-lock"></i> 下载记录管理</h2>
+            <button class="close-admin" id="closeAdmin">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
         
-        <div class="file-info">
+        <div class="password-prompt">
+            <h3><i class="fas fa-key"></i> 管理员验证</h3>
+            <p>请输入密码查看下载记录</p>
+            <input type="password" class="password-input" id="adminPassword" placeholder="输入管理员密码">
+            <button class="password-btn" id="passwordSubmit">
+                <i class="fas fa-unlock"></i> 提交验证
+            </button>
+            <div class="password-error" id="passwordError">
+                <i class="fas fa-exclamation-circle"></i> 密码错误，请重试
+            </div>
+        </div>
+        
+        <div id="downloadsContainer" style="display: none;">
+            <div class="table-container" style="max-height: 50vh; overflow-y: auto;">
+                <table class="downloads-table">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>姓名</th>
+                            <th>邮箱</th>
+                            <th>IP地址</th>
+                            <th>地理位置</th>
+                            <th>下载时间</th>
+                        </tr>
+                    </thead>
+                    <tbody id="downloadsList">
+                        <!-- 下载记录将通过JavaScript填充 -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="emptyMessage" class="empty-message" style="display: none;">
+                <i class="fas fa-inbox fa-3x" style="margin-bottom:20px;"></i>
+                <h3>尚未有下载记录</h3>
+                <p>当前没有用户下载记录</p>
+            </div>
+            
+            <div class="admin-actions">
+                <button class="admin-btn export" id="exportBtn">
+                    <i class="fas fa-file-export"></i> 导出CSV
+                </button>
+                <button class="admin-btn clear" id="clearBtn">
+                    <i class="fas fa-trash-alt"></i> 清除记录
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 主下载界面 -->
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-file-download"></i> 学术文件下载系统</h1>
+            <p>请填写以下信息以下载研究论文</p>
+        </div>
+        
+        <div class="file-card">
             <div class="file-icon">
                 <i class="fas fa-file-pdf"></i>
             </div>
             <div class="file-details">
-                <h3>Matlab program of cluster symmetry</h3>
+                <h3>数学研究论文集.pdf</h3>
+                <p>
+                    <span><i class="fas fa-file"></i> 文件大小: 4.2 MB</span>
+                    <span><i class="fas fa-calendar-alt"></i> 最后更新: 2023-08-15</span>
+                    <span><i class="fas fa-download"></i> 下载次数: <span class="download-count" id="downloadCount">0</span></span>
+                </p>
             </div>
         </div>
         
         <div class="form-container">
             <form id="downloadForm">
                 <div class="form-group">
-                    <label for="name" class="required">Name</label>
-                    <input type="text" id="name" name="name" placeholder="Please enter your name." required>
-                    <div class="error-message" id="nameError">Please enter a valid name (at least 2 characters).</div>
+                    <label for="name" class="required">姓名</label>
+                    <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
+                    <div class="error-message" id="nameError">请输入有效的姓名（至少2个字符）</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="email" class="required">Emmail</label>
-                    <input type="email" id="email" name="email" placeholder="Please enter your email address." required>
+                    <label for="email" class="required">电子邮箱</label>
+                    <input type="email" id="email" name="email" placeholder="请输入您的电子邮箱" required>
                     <div class="error-message" id="emailError">请输入有效的电子邮箱</div>
                 </div>
                 
@@ -346,8 +762,165 @@
     </div>
 
     <script>
-        // 初始化下载次数
-        document.getElementById('downloadCount').textContent = '0';
+        // 存储下载记录的数组
+        let downloads = JSON.parse(localStorage.getItem('downloadRecords')) || [];
+        
+        // 更新下载次数显示
+        document.getElementById('downloadCount').textContent = downloads.length;
+        
+        // 管理员密码（请修改为您的密码）
+        const ADMIN_PASSWORD = "academic123";
+        
+        // 点击计数器
+        let clickCounter = 0;
+        let clickTimeout;
+        
+        // 初始化下载记录显示
+        function updateDownloadsDisplay() {
+            const downloadsList = document.getElementById('downloadsList');
+            const emptyMessage = document.getElementById('emptyMessage');
+            
+            if (downloads.length === 0) {
+                downloadsList.innerHTML = '';
+                emptyMessage.style.display = 'block';
+                return;
+            }
+            
+            emptyMessage.style.display = 'none';
+            downloadsList.innerHTML = '';
+            
+            // 按时间倒序排列（最新下载在最前面）
+            const sortedDownloads = [...downloads].reverse();
+            
+            sortedDownloads.forEach((record, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${sortedDownloads.length - index}</td>
+                    <td>${record.name}</td>
+                    <td>${record.email}</td>
+                    <td>${record.ip}</td>
+                    <td>${record.location}</td>
+                    <td>${record.timestamp}</td>
+                `;
+                downloadsList.appendChild(row);
+            });
+        }
+        
+        // 打开管理员面板
+        function openAdminPanel() {
+            document.getElementById('adminOverlay').classList.add('active');
+            document.getElementById('adminPanel').classList.add('active');
+            document.getElementById('adminPassword').focus();
+        }
+        
+        // 关闭管理员面板
+        function closeAdminPanel() {
+            document.getElementById('adminOverlay').classList.remove('active');
+            document.getElementById('adminPanel').classList.remove('active');
+            document.getElementById('passwordError').style.display = 'none';
+            document.getElementById('downloadsContainer').style.display = 'none';
+            document.getElementById('adminPassword').value = '';
+        }
+        
+        // 处理管理员入口点击
+        document.getElementById('adminEntry').addEventListener('click', function() {
+            clickCounter++;
+            clearTimeout(clickTimeout);
+            
+            // 显示点击计数器
+            const counterDisplay = document.getElementById('counterDisplay');
+            counterDisplay.textContent = `点击次数: ${clickCounter}/3`;
+            counterDisplay.style.display = 'block';
+            
+            // 设置计数器显示时间
+            clickTimeout = setTimeout(() => {
+                counterDisplay.style.display = 'none';
+                clickCounter = 0;
+            }, 2000);
+            
+            // 如果点击达到3次
+            if (clickCounter >= 3) {
+                counterDisplay.style.display = 'none';
+                clickCounter = 0;
+                openAdminPanel();
+            }
+        });
+        
+        // 关闭按钮事件
+        document.getElementById('closeAdmin').addEventListener('click', closeAdminPanel);
+        document.getElementById('adminOverlay').addEventListener('click', closeAdminPanel);
+        
+        // 验证管理员密码
+        document.getElementById('passwordSubmit').addEventListener('click', function() {
+            const passwordInput = document.getElementById('adminPassword').value;
+            
+            if (passwordInput === ADMIN_PASSWORD) {
+                document.getElementById('downloadsContainer').style.display = 'block';
+                document.getElementById('passwordError').style.display = 'none';
+                updateDownloadsDisplay();
+            } else {
+                document.getElementById('passwordError').style.display = 'block';
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('adminPassword').focus();
+            }
+        });
+        
+        // 导出为CSV文件
+        document.getElementById('exportBtn').addEventListener('click', function() {
+            if (downloads.length === 0) {
+                alert('没有可导出的下载记录');
+                return;
+            }
+            
+            // 创建CSV内容
+            let csvContent = "序号,姓名,邮箱,IP地址,地理位置,下载时间\n";
+            
+            downloads.forEach((record, index) => {
+                csvContent += `${index + 1},${record.name},${record.email},${record.ip},${record.location},${record.timestamp}\n`;
+            });
+            
+            // 创建下载链接
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', `download_records_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+        
+        // 清除所有记录
+        document.getElementById('clearBtn').addEventListener('click', function() {
+            if (confirm('确定要清除所有下载记录吗？此操作不可恢复！')) {
+                downloads = [];
+                localStorage.setItem('downloadRecords', JSON.stringify(downloads));
+                updateDownloadsDisplay();
+                document.getElementById('downloadCount').textContent = '0';
+                alert('所有下载记录已清除');
+                closeAdminPanel();
+            }
+        });
+        
+        // 获取IP地址和地理位置
+        async function getIPAndLocation() {
+            try {
+                // 使用ipapi.co获取IP和位置信息
+                const response = await axios.get('https://ipapi.co/json/');
+                const data = response.data;
+                
+                return {
+                    ip: data.ip,
+                    location: `${data.country_name}, ${data.region}, ${data.city}`
+                };
+            } catch (error) {
+                console.error('获取IP和地理位置失败:', error);
+                return {
+                    ip: '未知',
+                    location: '未知'
+                };
+            }
+        }
         
         // 处理下载表单提交
         document.getElementById('downloadForm').addEventListener('submit', async function(e) {
@@ -382,47 +955,63 @@
             document.getElementById('loader').style.display = 'block';
             
             try {
-                // 发送数据到后端
-                const response = await fetch('/record-download', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        name: name,
-                        email: email
-                    })
+                // 获取IP和位置信息
+                const ipInfo = await getIPAndLocation();
+                
+                // 记录下载信息
+                const now = new Date();
+                const timestamp = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+                
+                downloads.push({
+                    name: name,
+                    email: email,
+                    ip: ipInfo.ip,
+                    location: ipInfo.location,
+                    timestamp: timestamp
                 });
                 
-                const result = await response.json();
+                // 保存到localStorage
+                localStorage.setItem('downloadRecords', JSON.stringify(downloads));
                 
-                if (result.success) {
-                    // 更新下载次数
-                    document.getElementById('downloadCount').textContent = result.downloadCount;
-                    
-                    // 显示成功消息
-                    document.getElementById('loader').style.display = 'none';
-                    document.getElementById('successMessage').style.display = 'block';
-                    document.getElementById('downloadLink').style.display = 'block';
-                    
-                    // 设置下载链接
-                    document.getElementById('downloadLink').href = result.download_url;
-                    
-                    // 滚动到下载链接
-                    document.getElementById('downloadLink').scrollIntoView({ behavior: 'smooth' });
-                } else {
-                    throw new Error(result.message || '请求处理失败');
-                }
+                // 更新下载次数
+                document.getElementById('downloadCount').textContent = downloads.length;
+                
+                // 显示成功消息
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('downloadLink').style.display = 'block';
+                
+                // 滚动到下载链接
+                document.getElementById('downloadLink').scrollIntoView({ behavior: 'smooth' });
+                
             } catch (error) {
                 document.getElementById('loader').style.display = 'none';
-                alert(`错误: ${error.message}`);
+                alert('处理请求时发生错误，请重试');
+                console.error('提交错误:', error);
             }
         });
         
         // 处理下载链接点击
         document.getElementById('downloadLink').addEventListener('click', function(e) {
-            // 这里不需要阻止默认行为，因为我们已经设置了正确的下载链接
+            e.preventDefault();
+            
             // 在实际应用中，这里会触发文件下载
+            // 以下是文件下载示例（替换为您的实际文件URL）
+            const fileUrl = 'https://example.com/path/to/your/file.pdf';
+            const a = document.createElement('a');
+            a.href = fileUrl;
+            a.download = '数学研究论文集.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            alert('文件下载已开始！您的信息已记录在系统后台。');
+        });
+        
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始时隐藏管理员面板元素
+            closeAdminPanel();
         });
     </script>
 </body>
