@@ -72,21 +72,5 @@ $(document).ready(function(){
     midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
   });
 
-   // 处理下载链接点击
-   document.getElementById('downloadLink').addEventListener('click', function(e) {
-    e.preventDefault();
-    
-    // 替换为您的实际文件URL
-    const fileUrl = 'https://yourusername.github.io/repository/path/to/file.pdf';
-    
-    // 创建临时下载链接
-    const a = document.createElement('a');
-    a.href = fileUrl;
-    a.download = '数学研究论文集.pdf'; // 下载文件名
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    
-    alert('文件下载已开始！您的信息已记录在系统后台。');
-});
+
 });
