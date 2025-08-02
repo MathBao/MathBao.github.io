@@ -417,8 +417,6 @@
 <body>
     <div class="container">
         <div class="header">
-            <h2><i class="fas fa-file-download"></i> 学术文件下载</h2>
-            <p>请填写以下信息以下载文件</p>
         </div>
         
         <div class="file-info">
@@ -427,48 +425,47 @@
             </div>
             <div class="file-details">
                 <h3>Matlab programs of Cluster Symmetry</h3>
-                // <p>文件大小: 4.2 MB | 最后更新: 2023-08-15 | 下载次数: <span id="downloadCount">0</span></p>
+                <p>Please fill in the following information to download the file.</p>
+                <p>Your information will only be used for academic exchange purposes.</p> 
             </div>
         </div>
         
         <div class="form-container">
             <form id="downloadForm">
                 <div class="form-group">
-                    <label for="name" class="required">姓名</label>
-                    <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
-                    <div class="error-message" id="nameError">请输入有效的姓名（至少2个字符）</div>
+                    <label for="name" class="required">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Please enter your name" required>
+                    <div class="error-message" id="nameError">Please enter a valid name (at least 2 characters).</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="email" class="required">电子邮箱</label>
-                    <input type="email" id="email" name="email" placeholder="请输入您的电子邮箱" required>
-                    <div class="error-message" id="emailError">请输入有效的电子邮箱</div>
+                    <label for="email" class="required">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Please enter your email" required>
+                    <div class="error-message" id="emailError">Please enter a valid email address.</div>
                 </div>
                 
                 <div class="loader" id="loader">
                     <div class="spinner"></div>
-                    <p>正在处理您的请求，请稍候...</p>
+                    <p>Processing your request, please wait...</p>
                 </div>
                 
                 <button type="submit" class="submit-btn">
-                    <i class="fas fa-download"></i> 获取下载链接
+                    <i class="fas fa-download"></i> Get download link
                 </button>
                 
                 <a href="#" class="download-link" id="downloadLink">
-                    <i class="fas fa-download"></i> 点击此处下载文件
+                    <i class="fas fa-download"></i> Click here to download the file.
                 </a>
             </form>
         </div>
         
         <div class="success-message" id="successMessage">
             <i class="fas fa-check-circle"></i>
-            <h2>下载请求已成功处理！</h2>
-            <p>您的信息已记录在系统后台，感谢您的下载</p>
+            <h2>Your download request has been successfully processed!</h2>
+            <p>Thank you for downloading!</p>
         </div>
         
         <div class="footer">
-            <p>您的信息仅用于学术交流目的，我们不会与任何第三方共享</p>
-            <p>© 2023 学术研究资料中心 | 隐私保护</p>
         </div>
     </div>
     
@@ -575,9 +572,9 @@
             clickCounter++;
             
             // 显示点击计数器
-            const counterIndicator = document.getElementById('counterIndicator');
-            counterIndicator.textContent = clickCounter;
-            counterIndicator.style.display = 'flex';
+            // const counterIndicator = document.getElementById('counterIndicator');
+            // counterIndicator.textContent = clickCounter;
+            // counterIndicator.style.display = 'flex';
             
             // 三秒后隐藏计数器
             setTimeout(() => {
