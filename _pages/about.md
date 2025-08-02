@@ -16,15 +16,17 @@ redirect_from:
   
 
 # Publications
+2. **The Approach of Cluster Symmetry to Diophantine Equations**.
+   * with Li Fang.
+   * [Matlab programs of this paper (Update 25.07.30)](/files/download.html), this programs can be run on [Matlab Online](https://matlab.mathworks.com)
+   * 
+
 1. **A Study on Diophantine Equations via Cluster Theory**.
    * with Li Fang.
    * Journal of Algebra, 2024.
    * [DOI](https://doi.org/10.1016/j.jalgebra.2023.10.012), [arXiv](https://arxiv.org/abs/2306.00468)
 
-2. **The Approach of Cluster Symmetry to Diophantine Equations**.
-   * with Li Fang.
-   * [Matlab program (Update 25.07.30)] 
-   * [Matlab program BB (Update 25.07.30)](/files/download.html)
+
 
 
 # Reports
