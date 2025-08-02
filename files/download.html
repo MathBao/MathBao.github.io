@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学术文件下载系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            background: linear-gradient(90deg, #3498db, #2c3e50);
+            color: white;
+            padding: 30px 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .file-info {
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .file-icon {
+            background: #3498db;
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .file-icon i {
+            font-size: 28px;
+            color: white;
+        }
+        
+        .file-details h3 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .file-details p {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        
+        .form-container {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(90deg, #2980b9, #2573a7);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+        
+        .success-message {
+            display: none;
+            background: #2ecc71;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            animation: fadeIn 0.5s;
+        }
+        
+        .success-message i {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .required:after {
+            content: " *";
+            color: #e74c3c;
+        }
+        
+        .download-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #3498db;
+            font-weight: 500;
+            font-size: 17px;
+            display: none;
+        }
+        
+        .loader {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .loader .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 隐藏的管理员按钮 */
+        .secret-admin-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0.05;
+            transition: opacity 0.3s;
+        }
+        
+        .secret-admin-btn:hover {
+            opacity: 0.1;
+        }
+        
+        /* 管理员面板 */
+        .admin-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            width: 90%;
+            max-width: 500px;
+            z-index: 2000;
+            display: none;
+            animation: scaleIn 0.3s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        .admin-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .admin-header h2 {
+            color: #2c3e50;
+            font-size: 24px;
+        }
+        
+        .password-prompt {
+            padding: 20px;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .password-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .password-btn:hover {
+            background: #2980b9;
+        }
+        
+        .password-error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+            text-align: center;
+        }
+        
+        .downloads-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .downloads-table th {
+            background: #3498db;
+            color: white;
+            text-align: left;
+            padding: 12px 15px;
+        }
+        
+        .downloads-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .downloads-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .downloads-table tr:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .empty-message {
+            text-align: center;
+            padding: 30px 20px;
+            color: #7f8c8d;
+            font-style: italic;
+            border: 1px dashed #ddd;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .admin-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .admin-controls button {
+            flex: 1;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            color: #7f8c8d;
+            cursor: pointer;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1500;
+            display: none;
+        }
+        
+        .counter-indicator {
+            position: fixed;
+            bottom: 70px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 1001;
+            display: none;
+        }
+        
+        @media (max-width: 600px) {
+            .file-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .file-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .admin-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2><i class="fas fa-file-download"></i> 学术文件下载</h2>
+            <p>请填写以下信息以下载文件</p>
+        </div>
+        
+        <div class="file-info">
+            <div class="file-icon">
+                <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-details">
+                <h3>数学研究论文集.pdf</h3>
+                <p>文件大小: 4.2 MB | 最后更新: 2023-08-15 | 下载次数: <span id="downloadCount">0</span></p>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <form id="downloadForm">
+                <div class="form-group">
+                    <label for="name" class="required">姓名</label>
+                    <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
+                    <div class="error-message" id="nameError">请输入有效的姓名（至少2个字符）</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="required">电子邮箱</label>
+                    <input type="email" id="email" name="email" placeholder="请输入您的电子邮箱" required>
+                    <div class="error-message" id="emailError">请输入有效的电子邮箱</div>
+                </div>
+                
+                <div class="loader" id="loader">
+                    <div class="spinner"></div>
+                    <p>正在处理您的请求，请稍候...</p>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-download"></i> 获取下载链接
+                </button>
+                
+                <a href="#" class="download-link" id="downloadLink">
+                    <i class="fas fa-download"></i> 点击此处下载文件
+                </a>
+            </form>
+        </div>
+        
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            <h2>下载请求已成功处理！</h2>
+            <p>您的信息已记录在系统后台，感谢您的下载</p>
+        </div>
+        
+        <div class="footer">
+            <p>您的信息仅用于学术交流目的，我们不会与任何第三方共享</p>
+            <p>© 2023 学术研究资料中心 | 隐私保护</p>
+        </div>
+    </div>
+    
+    <!-- 隐藏的管理员按钮 -->
+    <button class="secret-admin-btn" id="secretAdminBtn" title="管理员入口"></button>
+    <div class="counter-indicator" id="counterIndicator"></div>
+    
+    <!-- 管理员面板 -->
+    <div class="overlay" id="adminOverlay"></div>
+    <div class="admin-panel" id="adminPanel">
+        <button class="close-btn" id="closeAdminPanel">&times;</button>
+        <div class="admin-header">
+            <h2><i class="fas fa-user-shield"></i> 管理员面板</h2>
+            <p>下载记录管理</p>
+        </div>
+        
+        <div class="password-prompt" id="passwordSection">
+            <p>请输入管理员密码：</p>
+            <input type="password" class="password-input" id="adminPassword" placeholder="输入管理员密码">
+            <button class="password-btn" id="passwordSubmit">
+                <i class="fas fa-unlock"></i> 登录
+            </button>
+            <p class="password-error" id="passwordError">
+                <i class="fas fa-exclamation-circle"></i> 密码错误，请重试
+            </p>
+        </div>
+        
+        <div id="downloadsContainer" style="display: none;">
+            <div class="table-container" style="max-height: 300px; overflow-y: auto;">
+                <table class="downloads-table">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>姓名</th>
+                            <th>邮箱</th>
+                            <th>下载时间</th>
+                        </tr>
+                    </thead>
+                    <tbody id="downloadsList">
+                        <!-- 下载记录将通过JavaScript填充 -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="emptyMessage" class="empty-message" style="display: none;">
+                <i class="fas fa-inbox"></i>
+                <p>尚未有下载记录</p>
+            </div>
+            
+            <div class="admin-controls">
+                <button class="password-btn" id="exportBtn">
+                    <i class="fas fa-file-export"></i> 导出CSV
+                </button>
+                <button class="password-btn" id="clearBtn" style="background: #e74c3c;">
+                    <i class="fas fa-trash-alt"></i> 清除记录
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 存储下载记录的数组
+        let downloads = JSON.parse(localStorage.getItem('downloadRecords')) || [];
+        
+        // 更新下载次数显示
+        document.getElementById('downloadCount').textContent = downloads.length;
+        
+        // 管理员密码（请修改为您的密码）
+        const ADMIN_PASSWORD = "academic123";
+        
+        // 隐藏按钮点击计数器
+        let clickCounter = 0;
+        
+        // 初始化下载记录显示
+        function updateDownloadsDisplay() {
+            const downloadsList = document.getElementById('downloadsList');
+            const emptyMessage = document.getElementById('emptyMessage');
+            
+            if (downloads.length === 0) {
+                downloadsList.innerHTML = '';
+                emptyMessage.style.display = 'block';
+                return;
+            }
+            
+            emptyMessage.style.display = 'none';
+            downloadsList.innerHTML = '';
+            
+            // 按时间倒序排列（最新下载在最前面）
+            const sortedDownloads = [...downloads].reverse();
+            
+            sortedDownloads.forEach((record, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${sortedDownloads.length - index}</td>
+                    <td>${record.name}</td>
+                    <td>${record.email}</td>
+                    <td>${record.timestamp}</td>
+                `;
+                downloadsList.appendChild(row);
+            });
+        }
+        
+        // 隐藏按钮点击事件
+        document.getElementById('secretAdminBtn').addEventListener('click', function() {
+            clickCounter++;
+            
+            // 显示点击计数器
+            const counterIndicator = document.getElementById('counterIndicator');
+            counterIndicator.textContent = clickCounter;
+            counterIndicator.style.display = 'flex';
+            
+            // 三秒后隐藏计数器
+            setTimeout(() => {
+                counterIndicator.style.display = 'none';
+            }, 1000);
+            
+            // 点击三次后显示管理员面板
+            if (clickCounter >= 3) {
+                clickCounter = 0;
+                counterIndicator.style.display = 'none';
+                
+                // 显示管理员登录面板
+                document.getElementById('adminOverlay').style.display = 'block';
+                document.getElementById('adminPanel').style.display = 'block';
+                document.getElementById('passwordSection').style.display = 'block';
+                document.getElementById('downloadsContainer').style.display = 'none';
+                document.getElementById('adminPassword').focus();
+            }
+        });
+        
+        // 关闭管理员面板
+        document.getElementById('closeAdminPanel').addEventListener('click', function() {
+            document.getElementById('adminOverlay').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'none';
+        });
+        
+        document.getElementById('adminOverlay').addEventListener('click', function() {
+            document.getElementById('adminOverlay').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'none';
+        });
+        
+        // 验证管理员密码
+        document.getElementById('passwordSubmit').addEventListener('click', function() {
+            const passwordInput = document.getElementById('adminPassword').value;
+            
+            if (passwordInput === ADMIN_PASSWORD) {
+                document.getElementById('passwordError').style.display = 'none';
+                document.getElementById('passwordSection').style.display = 'none';
+                document.getElementById('downloadsContainer').style.display = 'block';
+                updateDownloadsDisplay();
+                document.getElementById('adminPassword').value = '';
+            } else {
+                document.getElementById('passwordError').style.display = 'block';
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('adminPassword').focus();
+            }
+        });
+        
+        // 导出为CSV文件
+        document.getElementById('exportBtn').addEventListener('click', function() {
+            if (downloads.length === 0) {
+                alert('没有可导出的下载记录');
+                return;
+            }
+            
+            // 创建CSV内容
+            let csvContent = "序号,姓名,邮箱,下载时间\n";
+            
+            downloads.forEach((record, index) => {
+                csvContent += `${index + 1},${record.name},${record.email},${record.timestamp}\n`;
+            });
+            
+            // 创建下载链接
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', `download_records_${new Date().toISOString().slice(0,10)}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+        
+        // 清除所有记录
+        document.getElementById('clearBtn').addEventListener('click', function() {
+            if (confirm('确定要清除所有下载记录吗？此操作不可恢复！')) {
+                downloads = [];
+                localStorage.setItem('downloadRecords', JSON.stringify(downloads));
+                updateDownloadsDisplay();
+                document.getElementById('downloadCount').textContent = '0';
+                alert('所有下载记录已清除');
+            }
+        });
+        
+        // 处理下载表单提交
+        document.getElementById('downloadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 获取表单值
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            // 重置错误信息
+            document.getElementById('nameError').style.display = 'none';
+            document.getElementById('emailError').style.display = 'none';
+            
+            let valid = true;
+            
+            // 验证姓名
+            if (!name || name.length < 2) {
+                document.getElementById('nameError').style.display = 'block';
+                valid = false;
+            }
+            
+            // 验证邮箱
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                document.getElementById('emailError').style.display = 'block';
+                valid = false;
+            }
+            
+            if (!valid) return;
+            
+            // 显示加载动画
+            document.getElementById('loader').style.display = 'block';
+            
+            // 模拟处理
+            setTimeout(() => {
+                // 记录下载信息
+                const now = new Date();
+                const timestamp = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+                
+                downloads.push({
+                    name: name,
+                    email: email,
+                    timestamp: timestamp
+                });
+                
+                // 保存到localStorage
+                localStorage.setItem('downloadRecords', JSON.stringify(downloads));
+                
+                // 更新下载次数
+                document.getElementById('downloadCount').textContent = downloads.length;
+                
+                // 显示成功消息
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('downloadLink').style.display = 'block';
+                
+                // 滚动到下载链接
+                document.getElementById('downloadLink').scrollIntoView({ behavior: 'smooth' });
+                
+            }, 1500);
+        });
+        
+        // 处理下载链接点击
+        document.getElementById('downloadLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 在实际应用中，这里会触发文件下载
+            // 以下是文件下载示例（替换为您的实际文件URL）
+            const fileUrl = 'https://example.com/path/to/your/file.pdf';
+            const a = document.createElement('a');
+            a.href = fileUrl;
+            a.download = '数学研究论文集.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            alert('文件下载已开始！您的信息已记录在系统后台。');
+        });
+        
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDownloadsDisplay();
+        });
+    </script>
+</body>
+</html>
