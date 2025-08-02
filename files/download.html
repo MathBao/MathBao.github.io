@@ -795,7 +795,7 @@
         // 设置键盘快捷键
         document.addEventListener('keydown', function(e) {
             // Ctrl+Alt+Shift+M 打开管理员面板
-            if (e.ctrlKey && e.altKey && e.shiftKey && e.key === 'M') {
+            if (e.altKey && e.key === 'M') {
                 e.preventDefault();
                 openAdminPanel();
             }
