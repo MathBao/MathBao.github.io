@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download</title>
+    <title>学术文件下载系统</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Noto Sans SC', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
@@ -23,33 +21,17 @@
             align-items: center;
             padding: 20px;
             position: relative;
-            overflow-x: hidden;
-        }
-        
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1509228468518-180dd4864904?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center;
-            background-size: cover;
-            opacity: 0.05;
-            z-index: -1;
         }
         
         .container {
-            background-color: rgba(255, 255, 255, 0.97);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
             width: 100%;
             max-width: 800px;
             overflow: hidden;
-            position: relative;
-            z-index: 10;
+            margin-bottom: 30px;
             animation: fadeIn 0.8s ease-out;
-            border: 1px solid rgba(0, 0, 0, 0.1);
         }
         
         @keyframes fadeIn {
@@ -58,87 +40,57 @@
         }
         
         .header {
-            background: linear-gradient(90deg, #2c3e50, #3498db);
+            background: linear-gradient(90deg, #3498db, #2c3e50);
             color: white;
             padding: 30px 25px;
             text-align: center;
             position: relative;
-            overflow: hidden;
         }
         
-        .header::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            transform: rotate(30deg);
-        }
-        
-        .header h1 {
-            font-size: 2.2rem;
+        .header h2 {
+            font-size: 28px;
             margin-bottom: 10px;
-            font-weight: 700;
-            position: relative;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-weight: 600;
         }
         
         .header p {
-            font-size: 1.1rem;
+            font-size: 16px;
             opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
         }
         
-        .file-card {
+        .file-info {
             display: flex;
             align-items: center;
-            background: linear-gradient(to right, #f8f9fa, #e9ecef);
-            padding: 25px;
-            border-bottom: 1px solid #dee2e6;
-            position: relative;
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
         }
         
         .file-icon {
             background: #3498db;
-            width: 70px;
-            height: 70px;
-            border-radius: 15px;
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            flex-shrink: 0;
+            margin-right: 15px;
         }
         
         .file-icon i {
-            font-size: 32px;
+            font-size: 28px;
             color: white;
         }
         
         .file-details h3 {
-            font-size: 1.4rem;
+            font-size: 18px;
             color: #2c3e50;
-            margin-bottom: 8px;
-            font-weight: 600;
+            margin-bottom: 5px;
         }
         
         .file-details p {
-            font-size: 1rem;
-            color: #6c757d;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .file-details span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            font-size: 14px;
+            color: #7f8c8d;
         }
         
         .form-container {
@@ -146,30 +98,29 @@
         }
         
         .form-group {
-            margin-bottom: 28px;
+            margin-bottom: 25px;
             position: relative;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
+            margin-bottom: 8px;
+            font-weight: 500;
             color: #2c3e50;
-            font-size: 1.1rem;
         }
         
         .form-group input {
             width: 100%;
-            padding: 16px 18px;
-            border: 2px solid #ced4da;
-            border-radius: 12px;
-            font-size: 1.05rem;
+            padding: 14px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
             transition: all 0.3s;
         }
         
         .form-group input:focus {
             border-color: #3498db;
-            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
             outline: none;
         }
         
@@ -177,37 +128,20 @@
             background: linear-gradient(90deg, #3498db, #2980b9);
             color: white;
             border: none;
-            padding: 18px;
-            font-size: 1.2rem;
+            padding: 16px;
+            font-size: 18px;
             font-weight: 600;
-            border-radius: 12px;
+            border-radius: 8px;
             cursor: pointer;
             width: 100%;
             transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .submit-btn::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: 0.5s;
-        }
-        
-        .submit-btn:hover::before {
-            left: 100%;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
         }
         
         .submit-btn:hover {
             background: linear-gradient(90deg, #2980b9, #2573a7);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 18px rgba(52, 152, 219, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
         }
         
         .submit-btn:active {
@@ -216,39 +150,38 @@
         
         .footer {
             text-align: center;
-            padding: 25px;
-            color: #6c757d;
-            font-size: 1rem;
-            border-top: 1px solid #e9ecef;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
             background: #f8f9fa;
         }
         
         .success-message {
             display: none;
-            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            background: #2ecc71;
             color: white;
-            padding: 30px 20px;
+            padding: 20px;
             text-align: center;
+            border-radius: 0 0 15px 15px;
             animation: fadeIn 0.5s;
         }
         
         .success-message i {
-            font-size: 50px;
-            margin-bottom: 20px;
-            animation: bounce 1.5s ease infinite;
+            font-size: 40px;
+            margin-bottom: 15px;
         }
         
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .error-message {
             color: #e74c3c;
-            font-size: 1rem;
-            margin-top: 8px;
+            font-size: 14px;
+            margin-top: 5px;
             display: none;
-            font-weight: 500;
         }
         
         .required:after {
@@ -259,36 +192,25 @@
         .download-link {
             display: block;
             text-align: center;
-            margin-top: 25px;
+            margin-top: 20px;
             color: #3498db;
-            font-weight: 600;
-            font-size: 1.2rem;
+            font-weight: 500;
+            font-size: 17px;
             display: none;
-            text-decoration: none;
-            transition: all 0.3s;
-            padding: 15px;
-            background: rgba(52, 152, 219, 0.1);
-            border-radius: 10px;
-        }
-        
-        .download-link:hover {
-            color: #2980b9;
-            transform: scale(1.03);
-            background: rgba(52, 152, 219, 0.15);
         }
         
         .loader {
             display: none;
             text-align: center;
-            margin: 25px 0;
+            margin: 20px 0;
         }
         
         .loader .spinner {
-            border: 5px solid rgba(0, 0, 0, 0.1);
-            border-left: 5px solid #3498db;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #3498db;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             animation: spin 1s linear infinite;
             margin: 0 auto;
         }
@@ -298,19 +220,23 @@
             100% { transform: rotate(360deg); }
         }
         
-        .download-count {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: #e74c3c;
-            color: white;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            font-size: 1rem;
-            font-weight: bold;
-            margin-left: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        /* 隐藏的管理员按钮 */
+        .secret-admin-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0.05;
+            transition: opacity 0.3s;
+        }
+        
+        .secret-admin-btn:hover {
+            opacity: 0.1;
         }
         
         /* 管理员面板 */
@@ -318,86 +244,89 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
+            transform: translate(-50%, -50%);
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
-            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 25px;
             width: 90%;
-            max-width: 900px;
-            max-height: 90vh;
-            overflow: auto;
+            max-width: 500px;
             z-index: 2000;
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none;
+            animation: scaleIn 0.3s ease-out;
         }
         
-        .admin-panel.active {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
+        @keyframes scaleIn {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
         
         .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #3498db;
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #3498db;
         }
         
         .admin-header h2 {
             color: #2c3e50;
-            font-size: 1.8rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            font-size: 24px;
         }
         
-        .close-admin {
-            background: #e74c3c;
+        .password-prompt {
+            padding: 20px;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .password-btn {
+            background: #3498db;
             color: white;
             border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            padding: 12px 20px;
+            border-radius: 5px;
             cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
         }
         
-        .close-admin:hover {
-            transform: rotate(90deg) scale(1.1);
-            background: #c0392b;
+        .password-btn:hover {
+            background: #2980b9;
+        }
+        
+        .password-error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+            text-align: center;
         }
         
         .downloads-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 1rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-top: 15px;
+            font-size: 14px;
         }
         
         .downloads-table th {
             background: #3498db;
             color: white;
             text-align: left;
-            padding: 15px 18px;
-            position: sticky;
-            top: 0;
-            font-weight: 600;
+            padding: 12px 15px;
         }
         
         .downloads-table td {
-            padding: 12px 18px;
+            padding: 10px 15px;
             border-bottom: 1px solid #eee;
-            color: #495057;
         }
         
         .downloads-table tr:nth-child(even) {
@@ -405,289 +334,100 @@
         }
         
         .downloads-table tr:hover {
-            background-color: #e9f7fe;
+            background-color: #e3f2fd;
         }
         
         .empty-message {
             text-align: center;
-            padding: 40px 20px;
-            color: #6c757d;
+            padding: 30px 20px;
+            color: #7f8c8d;
             font-style: italic;
-            border: 2px dashed #dee2e6;
-            border-radius: 15px;
+            border: 1px dashed #ddd;
+            border-radius: 8px;
             margin-top: 20px;
-            background: #f8f9fa;
         }
         
-        .password-prompt {
-            padding: 25px;
-            background: #f8f9fa;
-            border-radius: 15px;
-            margin-top: 20px;
-            border: 1px solid #e9ecef;
-        }
-        
-        .password-prompt h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
+        .admin-controls {
             display: flex;
-            align-items: center;
             gap: 10px;
+            margin-top: 20px;
         }
         
-        .password-input {
-            width: 100%;
-            padding: 15px;
-            margin: 15px 0;
-            border: 2px solid #ced4da;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-        }
-        
-        .password-input:focus {
-            border-color: #3498db;
-            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
-            outline: none;
-        }
-        
-        .password-btn {
-            background: linear-gradient(90deg, #3498db, #2980b9);
-            color: white;
-            border: none;
-            padding: 16px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 12px;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s;
-        }
-        
-        .password-btn:hover {
-            background: linear-gradient(90deg, #2980b9, #2573a7);
-            transform: translateY(-2px);
-        }
-        
-        .admin-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-        }
-        
-        .admin-btn {
-            color: white;
-            border: none;
-            padding: 14px 20px;
-            border-radius: 12px;
-            cursor: pointer;
+        .admin-controls button {
             flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-weight: 600;
-            font-size: 1.05rem;
-            transition: all 0.3s;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
-        .admin-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-        
-        .admin-btn.export {
-            background: linear-gradient(90deg, #2ecc71, #27ae60);
-        }
-        
-        .admin-btn.export:hover {
-            background: linear-gradient(90deg, #27ae60, #219653);
-        }
-        
-        .admin-btn.clear {
-            background: linear-gradient(90deg, #e74c3c, #c0392b);
-        }
-        
-        .admin-btn.clear:hover {
-            background: linear-gradient(90deg, #c0392b, #a93226);
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            color: #7f8c8d;
+            cursor: pointer;
         }
         
         .overlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
             z-index: 1500;
             display: none;
-            backdrop-filter: blur(5px);
         }
         
-        .overlay.active {
-            display: block;
-        }
-        
-        .password-error {
-            color: #e74c3c;
-            margin-top: 15px;
-            text-align: center;
-            font-weight: 500;
-            display: none;
-            font-size: 1.1rem;
-        }
-        
-        .key-hint {
+        .counter-indicator {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
+            bottom: 70px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.2);
             color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            z-index: 1000;
-            animation: pulse 2s infinite;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 1001;
+            display: none;
         }
         
-        @keyframes pulse {
-            0% { opacity: 0.7; }
-            50% { opacity: 1; }
-            100% { opacity: 0.7; }
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                border-radius: 15px;
-            }
-            
-            .header {
-                padding: 25px 20px;
-            }
-            
-            .header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .file-card {
+        @media (max-width: 600px) {
+            .file-info {
                 flex-direction: column;
                 text-align: center;
-                padding: 20px;
             }
             
             .file-icon {
                 margin-right: 0;
-                margin-bottom: 20px;
+                margin-bottom: 15px;
             }
             
-            .file-details p {
-                justify-content: center;
-            }
-            
-            .form-container {
-                padding: 25px 20px;
-            }
-            
-            .admin-panel {
-                width: 95%;
-                padding: 20px;
-            }
-            
-            .admin-actions {
+            .admin-controls {
                 flex-direction: column;
-            }
-            
-            .downloads-table {
-                font-size: 0.9rem;
-            }
-            
-            .downloads-table th, 
-            .downloads-table td {
-                padding: 10px 12px;
-            }
-            
-            .key-hint {
-                bottom: 10px;
-                right: 10px;
-                font-size: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
-    
-    <!-- 管理员面板 -->
-    <div class="overlay" id="adminOverlay"></div>
-    <div class="admin-panel" id="adminPanel">
-        <div class="admin-header">
-            <h2><i class="fas fa-lock"></i> 下载记录管理</h2>
-            <button class="close-admin" id="closeAdmin">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <div class="password-prompt">
-            <h3><i class="fas fa-key"></i> 管理员验证</h3>
-            <p>请输入密码查看下载记录</p>
-            <input type="password" class="password-input" id="adminPassword" placeholder="输入管理员密码">
-            <button class="password-btn" id="passwordSubmit">
-                <i class="fas fa-unlock"></i> 提交验证
-            </button>
-            <div class="password-error" id="passwordError">
-                <i class="fas fa-exclamation-circle"></i> 密码错误，请重试
-            </div>
-        </div>
-        
-        <div id="downloadsContainer" style="display: none;">
-            <div class="table-container" style="max-height: 50vh; overflow-y: auto;">
-                <table class="downloads-table">
-                    <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>姓名</th>
-                            <th>邮箱</th>
-                            <th>IP地址</th>
-                            <th>地理位置</th>
-                            <th>下载时间</th>
-                        </tr>
-                    </thead>
-                    <tbody id="downloadsList">
-                        <!-- 下载记录将通过JavaScript填充 -->
-                    </tbody>
-                </table>
-            </div>
-            <div id="emptyMessage" class="empty-message" style="display: none;">
-                <i class="fas fa-inbox fa-3x" style="margin-bottom:20px;"></i>
-                <h3>尚未有下载记录</h3>
-                <p>当前没有用户下载记录</p>
-            </div>
-            
-            <div class="admin-actions">
-                <button class="admin-btn export" id="exportBtn">
-                    <i class="fas fa-file-export"></i> 导出CSV
-                </button>
-                <button class="admin-btn clear" id="clearBtn">
-                    <i class="fas fa-trash-alt"></i> 清除记录
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 主下载界面 -->
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-file-download"></i> 学术文件下载系统</h1>
-            <p>请填写以下信息以下载研究论文</p>
+            <h2><i class="fas fa-file-download"></i> 学术文件下载</h2>
+            <p>请填写以下信息以下载文件</p>
         </div>
         
-        <div class="file-card">
+        <div class="file-info">
             <div class="file-icon">
                 <i class="fas fa-file-pdf"></i>
             </div>
             <div class="file-details">
                 <h3>数学研究论文集.pdf</h3>
+                <p>文件大小: 4.2 MB | 最后更新: 2023-08-15 | 下载次数: <span id="downloadCount">0</span></p>
             </div>
         </div>
         
@@ -728,6 +468,63 @@
         
         <div class="footer">
             <p>您的信息仅用于学术交流目的，我们不会与任何第三方共享</p>
+            <p>© 2023 学术研究资料中心 | 隐私保护</p>
+        </div>
+    </div>
+    
+    <!-- 隐藏的管理员按钮 -->
+    <button class="secret-admin-btn" id="secretAdminBtn" title="管理员入口"></button>
+    <div class="counter-indicator" id="counterIndicator"></div>
+    
+    <!-- 管理员面板 -->
+    <div class="overlay" id="adminOverlay"></div>
+    <div class="admin-panel" id="adminPanel">
+        <button class="close-btn" id="closeAdminPanel">&times;</button>
+        <div class="admin-header">
+            <h2><i class="fas fa-user-shield"></i> 管理员面板</h2>
+            <p>下载记录管理</p>
+        </div>
+        
+        <div class="password-prompt" id="passwordSection">
+            <p>请输入管理员密码：</p>
+            <input type="password" class="password-input" id="adminPassword" placeholder="输入管理员密码">
+            <button class="password-btn" id="passwordSubmit">
+                <i class="fas fa-unlock"></i> 登录
+            </button>
+            <p class="password-error" id="passwordError">
+                <i class="fas fa-exclamation-circle"></i> 密码错误，请重试
+            </p>
+        </div>
+        
+        <div id="downloadsContainer" style="display: none;">
+            <div class="table-container" style="max-height: 300px; overflow-y: auto;">
+                <table class="downloads-table">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>姓名</th>
+                            <th>邮箱</th>
+                            <th>下载时间</th>
+                        </tr>
+                    </thead>
+                    <tbody id="downloadsList">
+                        <!-- 下载记录将通过JavaScript填充 -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="emptyMessage" class="empty-message" style="display: none;">
+                <i class="fas fa-inbox"></i>
+                <p>尚未有下载记录</p>
+            </div>
+            
+            <div class="admin-controls">
+                <button class="password-btn" id="exportBtn">
+                    <i class="fas fa-file-export"></i> 导出CSV
+                </button>
+                <button class="password-btn" id="clearBtn" style="background: #e74c3c;">
+                    <i class="fas fa-trash-alt"></i> 清除记录
+                </button>
+            </div>
         </div>
     </div>
 
@@ -740,6 +537,9 @@
         
         // 管理员密码（请修改为您的密码）
         const ADMIN_PASSWORD = "academic123";
+        
+        // 隐藏按钮点击计数器
+        let clickCounter = 0;
         
         // 初始化下载记录显示
         function updateDownloadsDisplay() {
@@ -764,56 +564,61 @@
                     <td>${sortedDownloads.length - index}</td>
                     <td>${record.name}</td>
                     <td>${record.email}</td>
-                    <td>${record.ip}</td>
-                    <td>${record.location}</td>
                     <td>${record.timestamp}</td>
                 `;
                 downloadsList.appendChild(row);
             });
         }
         
-        // 打开管理员面板
-        function openAdminPanel() {
-            document.getElementById('adminOverlay').classList.add('active');
-            document.getElementById('adminPanel').classList.add('active');
-            document.getElementById('adminPassword').focus();
-        }
-        
-        // 关闭管理员面板
-        function closeAdminPanel() {
-            document.getElementById('adminOverlay').classList.remove('active');
-            document.getElementById('adminPanel').classList.remove('active');
-            document.getElementById('passwordError').style.display = 'none';
-            document.getElementById('downloadsContainer').style.display = 'none';
-            document.getElementById('adminPassword').value = '';
-        }
-        
-        // 设置键盘快捷键
-        document.addEventListener('keydown', function(e) {
-            // Ctrl+Alt+Shift+M 打开管理员面板
-            if (e.altKey && e.key === 'M') {
-                e.preventDefault();
-                openAdminPanel();
-            }
+        // 隐藏按钮点击事件
+        document.getElementById('secretAdminBtn').addEventListener('click', function() {
+            clickCounter++;
             
-            // ESC键关闭管理员面板
-            if (e.key === 'Escape') {
-                closeAdminPanel();
+            // 显示点击计数器
+            const counterIndicator = document.getElementById('counterIndicator');
+            counterIndicator.textContent = clickCounter;
+            counterIndicator.style.display = 'flex';
+            
+            // 三秒后隐藏计数器
+            setTimeout(() => {
+                counterIndicator.style.display = 'none';
+            }, 1000);
+            
+            // 点击三次后显示管理员面板
+            if (clickCounter >= 3) {
+                clickCounter = 0;
+                counterIndicator.style.display = 'none';
+                
+                // 显示管理员登录面板
+                document.getElementById('adminOverlay').style.display = 'block';
+                document.getElementById('adminPanel').style.display = 'block';
+                document.getElementById('passwordSection').style.display = 'block';
+                document.getElementById('downloadsContainer').style.display = 'none';
+                document.getElementById('adminPassword').focus();
             }
         });
         
-        // 关闭按钮事件
-        document.getElementById('closeAdmin').addEventListener('click', closeAdminPanel);
-        document.getElementById('adminOverlay').addEventListener('click', closeAdminPanel);
+        // 关闭管理员面板
+        document.getElementById('closeAdminPanel').addEventListener('click', function() {
+            document.getElementById('adminOverlay').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'none';
+        });
+        
+        document.getElementById('adminOverlay').addEventListener('click', function() {
+            document.getElementById('adminOverlay').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'none';
+        });
         
         // 验证管理员密码
         document.getElementById('passwordSubmit').addEventListener('click', function() {
             const passwordInput = document.getElementById('adminPassword').value;
             
             if (passwordInput === ADMIN_PASSWORD) {
-                document.getElementById('downloadsContainer').style.display = 'block';
                 document.getElementById('passwordError').style.display = 'none';
+                document.getElementById('passwordSection').style.display = 'none';
+                document.getElementById('downloadsContainer').style.display = 'block';
                 updateDownloadsDisplay();
+                document.getElementById('adminPassword').value = '';
             } else {
                 document.getElementById('passwordError').style.display = 'block';
                 document.getElementById('adminPassword').value = '';
@@ -829,10 +634,10 @@
             }
             
             // 创建CSV内容
-            let csvContent = "序号,姓名,邮箱,IP地址,地理位置,下载时间\n";
+            let csvContent = "序号,姓名,邮箱,下载时间\n";
             
             downloads.forEach((record, index) => {
-                csvContent += `${index + 1},${record.name},${record.email},${record.ip},${record.location},${record.timestamp}\n`;
+                csvContent += `${index + 1},${record.name},${record.email},${record.timestamp}\n`;
             });
             
             // 创建下载链接
@@ -841,6 +646,7 @@
             const link = document.createElement('a');
             link.setAttribute('href', url);
             link.setAttribute('download', `download_records_${new Date().toISOString().slice(0,10)}.csv`);
+            link.style.visibility = 'hidden';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -854,32 +660,11 @@
                 updateDownloadsDisplay();
                 document.getElementById('downloadCount').textContent = '0';
                 alert('所有下载记录已清除');
-                closeAdminPanel();
             }
         });
         
-        // 获取IP地址和地理位置
-        async function getIPAndLocation() {
-            try {
-                // 使用ipapi.co获取IP和位置信息
-                const response = await axios.get('https://ipapi.co/json/');
-                const data = response.data;
-                
-                return {
-                    ip: data.ip,
-                    location: `${data.country_name}, ${data.region}, ${data.city}`
-                };
-            } catch (error) {
-                console.error('获取IP和地理位置失败:', error);
-                return {
-                    ip: '未知',
-                    location: '未知'
-                };
-            }
-        }
-        
         // 处理下载表单提交
-        document.getElementById('downloadForm').addEventListener('submit', async function(e) {
+        document.getElementById('downloadForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             // 获取表单值
@@ -910,10 +695,8 @@
             // 显示加载动画
             document.getElementById('loader').style.display = 'block';
             
-            try {
-                // 获取IP和位置信息
-                const ipInfo = await getIPAndLocation();
-                
+            // 模拟处理
+            setTimeout(() => {
                 // 记录下载信息
                 const now = new Date();
                 const timestamp = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
@@ -921,8 +704,6 @@
                 downloads.push({
                     name: name,
                     email: email,
-                    ip: ipInfo.ip,
-                    location: ipInfo.location,
                     timestamp: timestamp
                 });
                 
@@ -940,11 +721,7 @@
                 // 滚动到下载链接
                 document.getElementById('downloadLink').scrollIntoView({ behavior: 'smooth' });
                 
-            } catch (error) {
-                document.getElementById('loader').style.display = 'none';
-                alert('处理请求时发生错误，请重试');
-                console.error('提交错误:', error);
-            }
+            }, 1500);
         });
         
         // 处理下载链接点击
@@ -966,13 +743,7 @@
         
         // 初始化页面
         document.addEventListener('DOMContentLoaded', function() {
-            // 初始时隐藏管理员面板元素
-            closeAdminPanel();
-            
-            // 5秒后隐藏快捷键提示
-            setTimeout(() => {
-                document.getElementById('keyHint').style.display = 'none';
-            }, 5000);
+            updateDownloadsDisplay();
         });
     </script>
 </body>
