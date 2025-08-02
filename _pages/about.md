@@ -38,5 +38,4 @@ redirect_from:
 
 
 
-       <a href="https://clustrmaps.com/site/1c7fb"  title="ClustrMaps"><img src="//www.clustrmaps.com/map_v2.png?d=qZqWNuBiyn41OoIP3P6sJx91DZWl55Yw_il0itFRZ04&cl=ffffff"  class="transparent-image">
- /></a>
+<a href="https://clustrmaps.com/site/1c7fb"  title="ClustrMaps"><img src="//www.clustrmaps.com/map_v2.png?d=qZqWNuBiyn41OoIP3P6sJx91DZWl55Yw_il0itFRZ04&cl=ffffff"  class="transparent-image" /></a>
