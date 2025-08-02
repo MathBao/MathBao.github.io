@@ -44,15 +44,7 @@ redirect_from:
 <br>
 <br>
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 
 <a href='https://clustrmaps.com/site/1c7fb'  title='Visit tracker'><img src='//clustrmaps.com/map_v2.png?cl=ffffff&w=70&t=n&d=qZqWNuBiyn41OoIP3P6sJx91DZWl55Yw_il0itFRZ04&co=ffffff'/></a>
 
