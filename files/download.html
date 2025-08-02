@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>学术文件下载系统</title>
+    <title>Download</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
     <style>
         * {
@@ -313,35 +313,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         
-        /* 隐藏管理员入口 */
-        .admin-entry {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            width: 40px;
-            height: 40px;
-            background: rgba(52, 152, 219, 0.15);
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-        
-        .admin-entry:hover {
-            background: rgba(52, 152, 219, 0.25);
-            transform: scale(1.1);
-        }
-        
-        .admin-entry i {
-            color: rgba(255,255,255,0.7);
-            font-size: 20px;
-        }
-        
+        /* 管理员面板 */
         .admin-panel {
             position: fixed;
             top: 50%;
@@ -567,18 +539,23 @@
             font-size: 1.1rem;
         }
         
-        .counter-display {
+        .key-hint {
             position: fixed;
-            bottom: 70px;
+            bottom: 20px;
             right: 20px;
-            background: rgba(46, 204, 113, 0.9);
+            background: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 8px 15px;
             border-radius: 20px;
-            font-weight: 600;
+            font-size: 0.9rem;
             z-index: 1000;
-            display: none;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
         }
         
         @media (max-width: 768px) {
@@ -630,17 +607,20 @@
             .downloads-table td {
                 padding: 10px 12px;
             }
+            
+            .key-hint {
+                bottom: 10px;
+                right: 10px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 隐藏管理员入口 -->
-    <div class="admin-entry" id="adminEntry" title="管理员入口">
-        <i class="fas fa-user-secret"></i>
+    <!-- 快捷键提示 -->
+    <div class="key-hint" id="keyHint">
+        <i class="fas fa-keyboard"></i> 管理员快捷键: Ctrl+Alt+Shift+M
     </div>
-    
-    <!-- 点击计数器显示 -->
-    <div class="counter-display" id="counterDisplay"></div>
     
     <!-- 管理员面板 -->
     <div class="overlay" id="adminOverlay"></div>
@@ -712,11 +692,6 @@
             </div>
             <div class="file-details">
                 <h3>数学研究论文集.pdf</h3>
-                <p>
-                    <span><i class="fas fa-file"></i> 文件大小: 4.2 MB</span>
-                    <span><i class="fas fa-calendar-alt"></i> 最后更新: 2023-08-15</span>
-                    <span><i class="fas fa-download"></i> 下载次数: <span class="download-count" id="downloadCount">0</span></span>
-                </p>
             </div>
         </div>
         
@@ -757,7 +732,6 @@
         
         <div class="footer">
             <p>您的信息仅用于学术交流目的，我们不会与任何第三方共享</p>
-            <p>© 2023 学术研究资料中心 | 隐私保护</p>
         </div>
     </div>
 
@@ -770,10 +744,6 @@
         
         // 管理员密码（请修改为您的密码）
         const ADMIN_PASSWORD = "academic123";
-        
-        // 点击计数器
-        let clickCounter = 0;
-        let clickTimeout;
         
         // 初始化下载记录显示
         function updateDownloadsDisplay() {
@@ -822,27 +792,17 @@
             document.getElementById('adminPassword').value = '';
         }
         
-        // 处理管理员入口点击
-        document.getElementById('adminEntry').addEventListener('click', function() {
-            clickCounter++;
-            clearTimeout(clickTimeout);
-            
-            // 显示点击计数器
-            const counterDisplay = document.getElementById('counterDisplay');
-            counterDisplay.textContent = `点击次数: ${clickCounter}/3`;
-            counterDisplay.style.display = 'block';
-            
-            // 设置计数器显示时间
-            clickTimeout = setTimeout(() => {
-                counterDisplay.style.display = 'none';
-                clickCounter = 0;
-            }, 2000);
-            
-            // 如果点击达到3次
-            if (clickCounter >= 3) {
-                counterDisplay.style.display = 'none';
-                clickCounter = 0;
+        // 设置键盘快捷键
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+Alt+Shift+M 打开管理员面板
+            if (e.ctrlKey && e.altKey && e.shiftKey && e.key === 'M') {
+                e.preventDefault();
                 openAdminPanel();
+            }
+            
+            // ESC键关闭管理员面板
+            if (e.key === 'Escape') {
+                closeAdminPanel();
             }
         });
         
@@ -1012,6 +972,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             // 初始时隐藏管理员面板元素
             closeAdminPanel();
+            
+            // 5秒后隐藏快捷键提示
+            setTimeout(() => {
+                document.getElementById('keyHint').style.display = 'none';
+            }, 5000);
         });
     </script>
 </body>
