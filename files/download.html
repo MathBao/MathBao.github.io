@@ -1,6 +1,542 @@
-<form action="https://getform.io/f/azynkjvb" method="POST">
-  <input type="text" name="name">
-  <input type="email" name="email">
-  <button type="submit">Send</button>
-  
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Resource Download</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            max-width: 700px;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            background: linear-gradient(90deg, #3498db, #2c3e50);
+            color: white;
+            padding: 35px 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h2 {
+            font-size: 32px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .file-info {
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 25px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .file-icon {
+            background: #3498db;
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .file-icon i {
+            font-size: 32px;
+            color: white;
+        }
+        
+        .file-details h3 {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .file-details p {
+            font-size: 16px;
+            color: #7f8c8d;
+        }
+        
+        .form-container {
+            padding: 35px;
+        }
+        
+        .form-group {
+            margin-bottom: 28px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 18px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 16px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 17px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 20px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(90deg, #2980b9, #2573a7);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: #7f8c8d;
+            font-size: 16px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+        
+        .success-message {
+            display: none;
+            background: #2ecc71;
+            color: white;
+            padding: 30px 25px;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            animation: fadeIn 0.5s;
+        }
+        
+        .success-message i {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: bounce 1.2s ease infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 16px;
+            margin-top: 8px;
+            display: none;
+        }
+        
+        .required:after {
+            content: " *";
+            color: #e74c3c;
+        }
+        
+        .download-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: #3498db;
+            font-weight: 500;
+            font-size: 20px;
+            display: none;
+            text-decoration: none;
+            transition: all 0.3s;
+            padding: 15px;
+            border: 2px dashed #3498db;
+            border-radius: 10px;
+            background: rgba(52, 152, 219, 0.05);
+        }
+        
+        .download-link:hover {
+            color: #2980b9;
+            transform: scale(1.03);
+            background: rgba(52, 152, 219, 0.1);
+        }
+        
+        .loader {
+            display: none;
+            text-align: center;
+            margin: 25px 0;
+        }
+        
+        .loader .spinner {
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1.2s linear infinite;
+            margin: 0 auto 15px auto;
+        }
+        
+        .loader p {
+            font-size: 18px;
+            color: #7f8c8d;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .security-info {
+            background: #f0f8ff;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        
+        .security-info h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .security-info p {
+            line-height: 1.7;
+        }
+        
+        .admin-contact {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 16px;
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .admin-contact a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 15px;
+            }
+            
+            .header {
+                padding: 25px 20px;
+            }
+            
+            .header h2 {
+                font-size: 26px;
+            }
+            
+            .header p {
+                font-size: 16px;
+            }
+            
+            .form-container {
+                padding: 25px;
+            }
+            
+            .file-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .file-icon {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .admin-contact {
+                font-size: 14px;
+                padding: 10px 15px;
+                max-width: 90%;
+                text-align: center;
+                left: 50%;
+                transform: translateX(-50%);
+                right: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2><i class="fas fa-file-download"></i> Academic Resource Download</h2>
+            <p>Access our premium research collection by filling out the form below. Your information helps us understand our audience and improve our resources.</p>
+        </div>
+        
+        <div class="file-info">
+            <div class="file-icon">
+                <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="file-details">
+                <h3>Advanced Mathematics Research Papers.pdf</h3>
+                <p>File size: 5.3 MB | Last updated: September 15, 2023</p>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <!-- Getform.io Form - Directly integrated -->
+            <form id="downloadForm" action="https://getform.io/f/azynkjvb" method="POST">
+                <div class="form-group">
+                    <label for="name" class="required">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                    <div class="error-message" id="nameError">Please enter a valid name (at least 2 characters)</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="required">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                    <div class="error-message" id="emailError">Please enter a valid email address</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="institution">Institution/Organization</label>
+                    <input type="text" id="institution" name="institution" placeholder="Where do you work or study?">
+                </div>
+                
+                <div class="form-group">
+                    <label for="purpose">Purpose of Download (Optional)</label>
+                    <input type="text" id="purpose" name="purpose" placeholder="Research, teaching, personal study, etc.">
+                </div>
+                
+                <!-- Hidden field for file name -->
+                <input type="hidden" name="file_name" value="Advanced Mathematics Research Papers.pdf">
+                
+                <div class="loader" id="loader">
+                    <div class="spinner"></div>
+                    <p>Processing your request and saving information securely...</p>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-download"></i> Get Download Link
+                </button>
+                
+                <a href="#" class="download-link" id="downloadLink">
+                    <i class="fas fa-download"></i> Click here to download the research collection
+                </a>
+            </form>
+            
+            <div class="security-info">
+                <h4><i class="fas fa-shield-alt"></i> Secure Data Submission via Getform.io</h4>
+                <p>Your information is securely transmitted to our database through Getform.io, a trusted form backend service. 
+                We value your privacy and assure you that your data will only be used for academic research purposes. 
+                No personal information will be shared with third parties.</p>
+            </div>
+        </div>
+        
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            <h2>Download Ready! Thank You</h2>
+            <p>Your information has been securely recorded. You may now download the research collection.</p>
+        </div>
+        
+        <div class="footer">
+            <p>All information is protected under our Privacy Policy. By downloading, you agree to use this material for academic purposes only.</p>
+            <p>© 2023 Academic Research Foundation | Contact: research@foundation.edu</p>
+        </div>
+    </div>
+    
+    <div class="admin-contact">
+        <i class="fas fa-user-shield"></i> Downloader information securely stored via <a href="https://getform.io" target="_blank">Getform.io</a>
+    </div>
+
+    <script>
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up form submission
+            const downloadForm = document.getElementById('downloadForm');
+            if (downloadForm) {
+                downloadForm.addEventListener('submit', handleFormSubmit);
+            }
+            
+            // Set up download link
+            const downloadLink = document.getElementById('downloadLink');
+            if (downloadLink) {
+                downloadLink.addEventListener('click', handleDownload);
+            }
+        });
+        
+        // Handle form submission
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            // Reset error messages
+            document.getElementById('nameError').style.display = 'none';
+            document.getElementById('emailError').style.display = 'none';
+            
+            let valid = true;
+            
+            // Validate name
+            if (!name || name.length < 2) {
+                document.getElementById('nameError').style.display = 'block';
+                valid = false;
+            }
+            
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                document.getElementById('emailError').style.display = 'block';
+                valid = false;
+            }
+            
+            if (!valid) return;
+            
+            // Show loader
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('submitBtn').disabled = true;
+            
+            // Submit the form via AJAX to Getform.io
+            submitToGetform();
+        }
+        
+        // Submit form to Getform.io
+        function submitToGetform() {
+            const form = document.getElementById('downloadForm');
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            })
+            .then(() => {
+                // Show success message
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('downloadLink').style.display = 'block';
+                
+                // Scroll to download link
+                document.getElementById('downloadLink').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center'
+                });
+            })
+            .catch(error => {
+                console.error('Error submitting data:', error);
+                
+                // Still proceed to show download link
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('downloadLink').style.display = 'block';
+                document.getElementById('downloadLink').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center'
+                });
+                
+                // Show error alert
+                setTimeout(() => {
+                    alert('Note: Your information might not have been recorded due to a technical issue, but you can still download the file.');
+                }, 1000);
+            });
+        }
+        
+        // Handle file download
+        function handleDownload(e) {
+            e.preventDefault();
+            
+            // Replace with your actual file URL
+            const fileUrl = 'https://mathbao.github.io/files/ClusterSymPoly_250730Version.zip';
+            
+            // Create temporary download link
+            const a = document.createElement('a');
+            a.href = fileUrl;
+            a.download = 'ClusterSymPoly_250730Version.zip';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            // Show download confirmation
+            setTimeout(() => {
+                alert('Download started! Thank you for your interest in our research!');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
