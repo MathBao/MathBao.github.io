@@ -338,7 +338,6 @@
     <div class="container">
         <div class="header">
             <h2><i class="fas fa-file-download"></i> Academic Resource Download</h2>
-            <p>We want to know who is interested in our work.</p>
             <p>Please fill in the form below to download the file.</p>
             <p>⚠️ Your information is used for academic purposes only.</p>
         </div>
@@ -363,13 +362,12 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="email">Email Address</label>
+                    <label for="email">Email Address (optional)</label>
                     <input type="email" id="email" name="email" placeholder="Enter your email address">
-                    <div class="error-message" id="emailError">Please enter a valid email address</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="institution">Institution/Organization</label>
+                    <label for="institution">Institution/Organization (optional)</label>
                     <input type="text" id="institution" name="institution" placeholder="Where do you work or study?">
                 </div>
                 
@@ -396,12 +394,8 @@
         <div class="success-message" id="successMessage">
             <i class="fas fa-check-circle"></i>
             <h2>Download Ready! Thank You!</h2>
-            <p>Your information has been securely recorded. You may now download the research collection.</p>
         </div>
         
-        <div class="footer">
-            <p>All information is protected under our Privacy Policy. By downloading, you agree to use this material for academic purposes only.</p>
-        </div>
     </div>
 
     <script>
@@ -498,9 +492,7 @@
                 });
                 
                 // Show error alert
-                setTimeout(() => {
-                    alert('Note: Your information might not have been recorded due to a technical issue, but you can still download the file.');
-                }, 1000);
+                // setTimeout(() => {alert('Note: Your information might not have been recorded due to a technical issue, but you can still download the file.');}, 1000);
             });
         }
         
