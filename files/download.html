@@ -362,12 +362,13 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="email">Email Address (optional)</label>
+                    <label for="email">Email Address</label>
                     <input type="email" id="email" name="email" placeholder="Enter your email address">
+                    <div class="error-message" id="emailError">Please enter a valid email address</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="institution">Institution/Organization (optional)</label>
+                    <label for="institution">Institution/Organization</label>
                     <input type="text" id="institution" name="institution" placeholder="Where do you work or study?">
                 </div>
                 
@@ -394,8 +395,12 @@
         <div class="success-message" id="successMessage">
             <i class="fas fa-check-circle"></i>
             <h2>Download Ready! Thank You!</h2>
+            <p>Your information has been securely recorded. You may now download the file.</p>
         </div>
         
+        <div class="footer">
+            <p>All information is protected under our Privacy Policy. By downloading, you agree to use this material for academic purposes only.</p>
+        </div>
     </div>
 
     <script>
@@ -492,7 +497,9 @@
                 });
                 
                 // Show error alert
-                // setTimeout(() => {alert('Note: Your information might not have been recorded due to a technical issue, but you can still download the file.');}, 1000);
+                setTimeout(() => {
+                    alert('Note: Your information might not have been recorded due to a technical issue, but you can still download the file.');
+                }, 1000);
             });
         }
         
